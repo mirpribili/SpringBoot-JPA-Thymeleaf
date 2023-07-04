@@ -18,10 +18,6 @@ public class SpringBootV2713HelloWorldExampleApplication implements CommandLineR
 	public void run(String... args) throws Exception {
 		System.out.println(" *** Show arguments *** ");
 		Arrays.stream(args).forEach(System.out::println);
-		// for old java
-		for (int i=0;i< args.length; i++){
-			System.out.println(args[i]);
-		}
 	}
 /*
 if I want war file
