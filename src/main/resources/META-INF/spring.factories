@@ -1,0 +1,1 @@
+org.springframework.boot.diagnostics.FailureAnalyzer=com.example.springbootv2713helloworldexample.exception.UrlNotAccessFailureAnalyzer
