@@ -9,7 +9,7 @@ import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
 public class SpringBootV2713HelloWorldExampleApplication {
-
+// JPA
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootV2713HelloWorldExampleApplication.class, args);
 	}
