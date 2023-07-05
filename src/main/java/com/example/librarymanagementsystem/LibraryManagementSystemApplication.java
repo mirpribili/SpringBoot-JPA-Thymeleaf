@@ -9,5 +9,6 @@ public class LibraryManagementSystemApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(LibraryManagementSystemApplication.class, args);
 	}
+	// Create Entity and Repository
 
 }
