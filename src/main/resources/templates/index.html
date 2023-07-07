@@ -10,6 +10,7 @@
 </head>
 <body>
 <div class="container my-2">
+    <h1>Library Management System</h1>
     <div class="card">
         <div class="card-body">
             <div th:switch="${books}" class="container my-5">
@@ -18,36 +19,39 @@
                         <i class="fas fa-solid fa-plus">Add Book</i>
                     </a>
                 </p>
-                <h2 th:case="null">No record found!!</h2>
-                <div th:case="*">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Edith</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="book: ${books}">
-                            <td th:text="${book.name}"></td>
-                            <td th:text="${book.description}"></td>
-                            <td th:text="${book.price}"></td>
-                            <td>
-                                <a th:href="@{/edit/{id}(id=${book.id})}" role="button" class="btn btn-warning">
-                                <i class="fas fa-solid fa-edith"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">
-                                <i class="fas fa-solid fa-trash"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="col-md-10">
+
+                    <h2 th:case="null">No record found!!</h2>
+                    <div th:case="*">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Edith</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="book: ${books}">
+                                <td th:text="${book.name}"></td>
+                                <td th:text="${book.description}"></td>
+                                <td th:text="${book.price}"></td>
+                                <td>
+                                    <a th:href="@{/edit/{id}(id=${book.id})}" role="button" class="btn btn-warning">
+                                    <i class="fas fa-solid fa-edith"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">
+                                    <i class="fas fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

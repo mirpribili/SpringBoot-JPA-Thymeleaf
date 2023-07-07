@@ -19,6 +19,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book createBook(Book book) {
+        System.out.println("*** Create a book ***");
         return bookRepository.save(book);
     }
 
