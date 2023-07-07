@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -10,12 +11,14 @@
 </head>
 <body>
 <div class="container my-2">
+    Hello <b sec:authentication="principal.Username"></b>
+    <a href="/logout" style="float:right">Logout</a>
     <h1>Library Management System</h1>
     <div class="card">
         <div class="card-body">
             <div th:switch="${books}" class="container my-5">
                 <p class="my-5">
-                    <a href="/edit" class="btn btn-success">
+                    <a href="/edit" class="btn btn-success" sec:authorize="hasAnyRole('ADMIN','PUBLISHER')">
                         <i class="fas fa-solid fa-plus">Add Book</i>
                     </a>
                 </p>
@@ -39,12 +42,12 @@
                                 <td th:text="${book.description}"></td>
                                 <td th:text="${book.price}"></td>
                                 <td>
-                                    <a th:href="@{/edit/{id}(id=${book.id})}" role="button" class="btn btn-warning">
+                                    <a th:href="@{/edit/{id}(id=${book.id})}" role="button" class="btn btn-warning" sec:authorize="hasAnyRole('ADMIN','PUBLISHER')">
                                     <i class="fas fa-solid fa-edith"></i>
                                     </a>
                                 </td>
                                 <td>
-                                    <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">
+                                    <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger" sec:authorize="hasRole('ADMIN')">
                                     <i class="fas fa-solid fa-trash"></i>
                                     </a>
                                 </td>
