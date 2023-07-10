@@ -1,10 +1,10 @@
-package com.example.springbootv2713helloworldexample;
+package com.javacorner.admin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringBootV2713HelloWorldExampleApplicationTests {
+class JavacornerAdminApplicationTests {
 
 	@Test
 	void contextLoads() {
