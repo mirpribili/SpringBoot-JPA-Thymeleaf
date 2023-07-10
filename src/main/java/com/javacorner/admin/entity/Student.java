@@ -1,17 +1,41 @@
 package com.javacorner.admin.entity;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
+@Entity
+@Table(name = "students")
 public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id", nullable = false)
     private Long studentId;
+    @Basic
+    @Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
+    @Basic
+    @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
+    @Basic
+    @Column(name = "level", nullable = false, length = 64)
     private String level;
 
+    /**
+     * com.javacorner.admin.entity.Course.java
+     * ...
+     *     @ManyToMany(fetch = FetchType.LAZY)
+     *     @JoinTable(name = "enrolled_in",
+     *             joinColumns = {@JoinColumn(name = "course_id")},
+     *             inverseJoinColumns ={@JoinColumn(name = "student_id")} )
+     *     private Set<Student> students = new HashSet<>();
+     * ...
+     * */
+    @ManyToMany(mappedBy = "students"/* ^^ */, fetch = FetchType.LAZY)
     private Set<Course> courses = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private User user;
 
     @Override
