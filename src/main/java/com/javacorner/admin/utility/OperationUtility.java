@@ -9,6 +9,7 @@ import java.util.Optional;
 
 
 public class OperationUtility {
+
     public static void userOperations(UserDao userDao){
         createUsers(userDao);
         updateUser(userDao);
@@ -115,6 +116,9 @@ public class OperationUtility {
     }
 
     public static void assignRolesToUsers(UserDao userDao, RoleDao roleDao){
+        //createUsers(userDao);
+        //createRoles(roleDao);
+
         Role role = roleDao.findByName("Admin");
         if(role==null) throw new EntityNotFoundException("Role Not Found");
         List<User> users = userDao.findAll();
