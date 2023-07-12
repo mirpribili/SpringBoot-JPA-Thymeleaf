@@ -5,6 +5,7 @@ import com.javacorner.admin.entity.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 
 public class OperationUtility {
@@ -40,6 +41,27 @@ public class OperationUtility {
         createCourses(courseDao, instructorDao, studentDao);
         updateCourse(courseDao);
         deleteCourse(courseDao);
+        fetchCourse(courseDao);
+        assignStudentsToCourse(courseDao, studentDao);
+        fetchCoursesForStudent(courseDao);
+    }
+
+    private static void fetchCoursesForStudent(CourseDao courseDao) {
+        // +- getCoursesByStudentId
+        courseDao.getCoursesByStudentId(1L).forEach(course -> System.out.println(course.toString()));
+    }
+
+    private static void assignStudentsToCourse(CourseDao courseDao, StudentDao studentDao) {
+        Optional<Student> student1 = studentDao.findById(1L);
+        Optional<Student> student2 = studentDao.findById(2L);
+        Course course = courseDao.findById(1L).orElseThrow(()->new EntityNotFoundException("Course Not Found"));
+        student1.ifPresent(course::assignStudentToCourses);
+        student2.ifPresent(course::assignStudentToCourses);
+        courseDao.save(course);
+    }
+
+    private static void fetchCourse(CourseDao courseDao) {
+        courseDao.findAll().forEach(course -> System.out.println(course.toString()));
     }
 
 
