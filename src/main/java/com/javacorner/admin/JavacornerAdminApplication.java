@@ -20,6 +20,15 @@ public class JavacornerAdminApplication implements CommandLineRunner {
 	@Autowired
 	private RoleDao roleDao;
 
+	/** Spring Service Implementation Steps
+	 * To take:
+	 * 1. Use Spring Data JPA project.
+	 * 2. Remove Utility Package.
+	 * 3. Create Service Interfaces & their implementations.
+	 * 4. Add @Service & @Transactional Annotations to Services.
+	 * 5. Update application.properties file.
+	 * 6. Write from Application to Database & Test.
+	 */
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavacornerAdminApplication.class, args);
