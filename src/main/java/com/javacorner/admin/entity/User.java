@@ -32,7 +32,7 @@ public class User {
      */
     @OneToOne(mappedBy = "user")
     private Student student;
-
+    @OneToOne(mappedBy = "user")
     private Instructor instructor;
 
     @Override
