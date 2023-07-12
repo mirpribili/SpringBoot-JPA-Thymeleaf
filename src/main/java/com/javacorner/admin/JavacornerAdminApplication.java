@@ -27,6 +27,8 @@ public class JavacornerAdminApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		OperationUtility.userOperations(userDao);
+		//OperationUtility.userOperations(userDao);
+		//OperationUtility.roleOperations(roleDao);
+		//OperationUtility.assignRolesToUsers(userDao,roleDao);
 	}
 }
