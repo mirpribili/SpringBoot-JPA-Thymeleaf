@@ -32,5 +32,8 @@ public class JavacornerAdminApplication implements CommandLineRunner {
 		//OperationUtility.assignRolesToUsers(userDao,roleDao);
 		//OperationUtility.instructorsOperations(userDao, instructorDao, roleDao);
 		//OperationUtility.studentOperations(userDao, studentDao, roleDao);
+
+		//OperationUtility.createRolesUsersInstructors(userDao,roleDao,instructorDao,studentDao);
+		//OperationUtility.courseOperations(courseDao, instructorDao, studentDao);
 	}
 }

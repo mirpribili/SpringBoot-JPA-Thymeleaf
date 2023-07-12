@@ -48,7 +48,6 @@ public class OperationUtility {
     }
 
     private static void fetchCoursesForStudent(CourseDao courseDao) {
-        // +- getCoursesByStudentId
         courseDao.getCoursesByStudentId(1L).forEach(course -> System.out.println(course.toString()));
     }
 
@@ -60,7 +59,12 @@ public class OperationUtility {
         student2.ifPresent(course::assignStudentToCourses);
         courseDao.save(course);
     }
-
+    public static void createRolesUsersInstructors(UserDao userDao, RoleDao roleDao, InstructorDao instructorDao, StudentDao studentDao){
+        createUsers(userDao);
+        createRoles(roleDao);
+        createInstructors(userDao, instructorDao, roleDao);
+        createStudents(userDao, studentDao, roleDao);
+    }
     private static void fetchCourse(CourseDao courseDao) {
         courseDao.findAll().forEach(course -> System.out.println(course.toString()));
     }
