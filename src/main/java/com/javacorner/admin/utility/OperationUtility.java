@@ -197,15 +197,15 @@ public class OperationUtility {
         if(role == null) throw new EntityNotFoundException("Role Not Found");
 
         User user1 = new User("InstructorUser1@gmail.com", "pass1");
-        userDao.save(user1);
         user1.assignRoleToUser(role);
+        userDao.save(user1);
         Instructor instructor1 =new Instructor(
                 "instructor1FN", "instructor1LN", "Experienced Instructor", user1);
         instructorDao.save(instructor1);
 
         User user2 = new User("InstructorUser2@gmail.com", "pass2");
-        userDao.save(user2);
         user2.assignRoleToUser(role);
+        userDao.save(user2);
         Instructor instructor2 =new Instructor(
                 "instructor2FN", "instructor2LN", "Senior Instructor", user2);
         instructorDao.save(instructor2);
