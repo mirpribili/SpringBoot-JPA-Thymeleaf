@@ -1,13 +1,19 @@
 package com.javacorner.admin;
 
 import com.javacorner.admin.dao.*;
+import com.javacorner.admin.entity.User;
+import com.javacorner.admin.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class JavacornerAdminApplication implements CommandLineRunner {
+public class JavacornerAdminApplication {
+	public static final String ADMIN = "Admin";
+	public static final String INSTRUCTOR = "Instructor";
+	public static final String STUDENT = "Student";
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -32,9 +38,20 @@ public class JavacornerAdminApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(JavacornerAdminApplication.class, args);
 	}
+	@Bean
+	CommandLineRunner start(UserService userService, RoleService roleService, StudentService service, InstructorService instructorService, CourseService courseService){
+		return args -> {
+			User user1 = userService.createUser("user1@gmail.com", "pass1");
+			User user2 = userService.createUser("user2@gmail.com", "pass2");
+			User user3 = userService.createUser("user3@gmail.com", "pass3");
 
-	@Override
-	public void run(String... args) throws Exception {
+			roleService.createRole(ADMIN);
+			roleService.createRole(INSTRUCTOR);
+			roleService.createRole(STUDENT);
 
+			userService.assignRoleToUser(user1.getEmail(), ADMIN);
+			userService.assignRoleToUser(user2.getEmail(), INSTRUCTOR);
+			userService.assignRoleToUser(user3.getEmail(), STUDENT);
+		};
 	}
 }
