@@ -7,10 +7,13 @@ import com.javacorner.admin.entity.User;
 import com.javacorner.admin.service.CourseService;
 import com.javacorner.admin.service.InstructorService;
 import com.javacorner.admin.service.UserService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
-
+@Service
+@Transactional
 public class InstructorServiceImpl implements InstructorService {
     private InstructorDao instructorDao;
     private CourseService courseService;
