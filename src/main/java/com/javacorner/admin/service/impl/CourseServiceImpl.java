@@ -6,7 +6,6 @@ import com.javacorner.admin.dao.StudentDao;
 import com.javacorner.admin.entity.Course;
 import com.javacorner.admin.entity.Instructor;
 import com.javacorner.admin.entity.Student;
-import com.javacorner.admin.service.CourseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +14,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl implements com.javacorner.admin.service.CourseService {
 
     private CourseDao courseDao;
 
