@@ -13,7 +13,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional // allows us to combine a group of writings in database operations.
 public class CourseServiceImpl implements com.javacorner.admin.service.CourseService {
 
     private CourseDao courseDao;
