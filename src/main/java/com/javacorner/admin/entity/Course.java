@@ -44,7 +44,7 @@ public class Course {
         return Objects.hash(courseId, courseName, courseDuration, courseDescription);
     }
 
-    public void assignStudentToCourses(Student student){
+    public void assignStudentToCourse(Student student){
         this.students.add(student);
         student.getCourses().add(this);
     }
