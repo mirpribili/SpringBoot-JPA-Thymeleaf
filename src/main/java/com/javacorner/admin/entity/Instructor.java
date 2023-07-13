@@ -30,7 +30,7 @@ public class Instructor {
      * ...
      * */
     @OneToMany(mappedBy = "instructor"/* ! */, fetch = FetchType.LAZY) // see up ^^
-    private Set<Course> courseSet = new HashSet<>();
+    private Set<Course> courses = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
@@ -101,12 +101,12 @@ public class Instructor {
         this.summary = summary;
     }
 
-    public Set<Course> getCourseSet() {
-        return courseSet;
+    public Set<Course> getCourses() {
+        return courses;
     }
 
     public void setCourseSet(Set<Course> courseSet) {
-        this.courseSet = courseSet;
+        this.courses = courseSet;
     }
 
     public User getUser() {

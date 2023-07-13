@@ -9,7 +9,7 @@ public interface InstructorService {
     List<Instructor> findInstructorsByName(String name);
     Instructor loadInstructorsByEmail(String email);
     Instructor createInstructor(String firstName, String lastName, String summary, String email, String password);
-    Instructor updateInstructor(Instructor instructorId);
+    Instructor updateInstructor(Instructor instructor);
     List<Instructor> fetchInstructors();
     void removeInstructor(Long instructorId);
 }
