@@ -3,8 +3,10 @@ package com.javacorner.admin.service.impl;
 import com.javacorner.admin.dao.InstructorDao;
 import com.javacorner.admin.entity.Course;
 import com.javacorner.admin.entity.Instructor;
+import com.javacorner.admin.entity.User;
 import com.javacorner.admin.service.CourseService;
 import com.javacorner.admin.service.InstructorService;
+import com.javacorner.admin.service.UserService;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -12,10 +14,12 @@ import java.util.List;
 public class InstructorServiceImpl implements InstructorService {
     private InstructorDao instructorDao;
     private CourseService courseService;
+    private UserService userService;
 
-    public InstructorServiceImpl(InstructorDao instructorDao, CourseService courseService) {
+    public InstructorServiceImpl(InstructorDao instructorDao, CourseService courseService, UserService userService) {
         this.instructorDao = instructorDao;
         this.courseService = courseService;
+        this.userService = userService;
     }
 
     @Override
@@ -35,7 +39,9 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public Instructor createInstructor(String firstName, String lastName, String summary, String email, String password) {
-        return null;
+        User user = userService.createUser(email,password);
+        userService.assignRoleToUser(email, "Instructor");
+        return instructorDao.save(new Instructor(firstName,lastName,summary,user));
     }
 
     @Override
