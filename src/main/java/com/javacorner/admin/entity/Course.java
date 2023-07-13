@@ -50,7 +50,7 @@ public class Course {
     }
     public void removeStudentFromCourse(Student student){
         this.students.remove(student);
-        student.getCourses().add(this);
+        student.getCourses().remove(this);
     }
 
     public Course() {

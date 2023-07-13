@@ -9,8 +9,8 @@ public interface StudentService {
     List<Student> findStudentByName(String name);
     Student loadStudentByEmail(String email);
 
-    Student createStudent(String firstName, String lastName, String email, String password);
-    void updateStudent(Student student);
+    Student createStudent(String firstName, String lastName,String level, String email, String password);
+    Student updateStudent(Student student);
     List<Student> fetchStudent();
     void removeStudent(Long studentId);
 }
