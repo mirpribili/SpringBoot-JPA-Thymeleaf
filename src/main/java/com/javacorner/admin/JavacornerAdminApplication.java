@@ -18,14 +18,12 @@ public class JavacornerAdminApplication {
 	public static final String INSTRUCTOR = "Instructor";
 	public static final String STUDENT = "Student";
 
-	/** Spring Service Implementation Steps
+	/** Unit & Integration Testing Implementation Steps
 	 * To take:
-	 * 1. Use Spring Data JPA project.
-	 * 2. Remove Utility Package.
-	 * 3. Create Service Interfaces & their implementations.
-	 * 4. Add @Service & @Transactional Annotations to Services.
-	 * 5. Update application.properties file.
-	 * 6. Write from Application to Database & Test.
+	 * 1. Use Spring Service Project.
+	 * 2. Creating Unit Tests for Service Layer using Junit-5 & Mockito-4.
+	 * 3. Configuring Test Containers for Integration Test.
+	 * 4. Testing Repositories using TestContainers & DataJpaTest.
 	 */
 
 	public static void main(String[] args) {
