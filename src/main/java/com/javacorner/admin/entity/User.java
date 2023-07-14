@@ -40,7 +40,10 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return userId.equals(user.userId) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+        //return userId.equals(user.userId) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+        // after Unit test
+        // in unit test this was null.equals(user.userId)
+        return Objects.equals(userId, user.userId) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
     }
 
     public Long getUserId() {
