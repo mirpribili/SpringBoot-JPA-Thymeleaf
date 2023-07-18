@@ -20,9 +20,7 @@ class CourseDaoTest extends AbstractTest {
      * sudo apt update
      * sudo apt install curl software-properties-common ca-certificates apt-transport-https -y
      * curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-     ** curl -f -s -S -L https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
      * echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-     ** sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable"
      * sudo apt update
      * apt-cache policy docker-ce
         * cmd:
@@ -37,34 +35,18 @@ class CourseDaoTest extends AbstractTest {
          *  Active: active (running)
      *  sudo usermod -aG docker ${USER}
      *  sudo usermod -aG docker $USER
+     *  sudo usermod -aG docker detour
+     *
      *  su - ${USER}
      *  groups
          *  circumventing adm cdrom sudo dip plugdev lpadmin lxd sambashare docker
-        *  sudo usermod -aG docker username
-     *  sudo usermod -aG docker circumventing
-     *
-     *  - If you want to check that docker is properly running you can try starting up a postgres db in docker with:
-     *  docker run hello-world
-         *  docker run --name postgres-db -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
-         * ... need net fo download
-     *
-     *
-     * You can try out this:
+     * docker run hello-world
      * systemctl start docker
-     * after if there is commands that you can't do without sudo, try this:
-     * gpasswd -a $USER docker
-     *
-     *
-     * sudo apt install gnome-terminal
-     * sudo apt remove docker-desktop
-     * rm -r $HOME/.docker/desktop
-     * sudo rm /usr/local/bin/com.docker.cli
-     * sudo apt purge docker-desktop
-     *
-     *
-     * sudo apt-get update
-     * cd Downloads
-     * sudo apt-get install ./docker-desktop-4.21.1-amd64.deb -y
+     * sudo gpasswd -a ${USER} docker
+     * sudo gpasswd -a detour docker
+     * --------------------
+     * NEED RESTART
+     * --------------------
      */
     @Autowired
     private CourseDao courseDao;
