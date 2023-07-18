@@ -1,5 +1,46 @@
 # SpringBoot-JPA-Thymeleaf
-Developing a Full-Stack App : SpringBoot + JPA + Thymeleaf
+* Developing a Full-Stack App : SpringBoot + JPA + Thymeleaf
+
+## Spring Data JPA
+### Implementing Model Layer using Spring Data JPA
+#### To take:
+1. Create a Spring Boot Initializer
+2. Choose Application Maven Dependencies
+3. Create Entities & Relationships
+4. Add database configurations in application.properties
+5. Implementation JPA Repositories Interfaces
+6. Developing Helper Class to Test the Functionalities
+7. Create the Application Database in phpMyAdmin (MySQL)
+8. Generate the Database tables from Application ORM
+
+## Spring Service
+### Implementing Business Layer using Spring Service
+#### To take:
+1. Use Spring Data JPA project.
+2. Remove Utility Package.
+3. Create Service Interfaces & their implementations.
+4. Add @Service & @Transactional Annotations to Services.
+5. Update application.properties file.
+6. Write from Application to Database & Test.
+
+##  Unit & Integration Testing
+### Implementing Testing Layer using SpringBoot Testing. 
+#### To take:
+1. Use Spring Service Project.
+2. Creating Unit Tests for Service Layer using Junit-5 & Mockito-4.
+3. Configuring Test Containers for Integration Test.
+4. Testing Repositories using TestContainers & DataJpaTest.
+
+## Spring MVC & Thymeleaf
+### Implementing Front-End Layer using Thymeleaf
+#### TODO
+1. Use Testing Project
+2. Add Required Dependencies to pom.xml
+3. Create 'Course' Controller & Views
+4. Create 'Instructor' Controller & Views
+5. Create 'Student' Controller & Views
+
+
 
 * If you need the Docker
 * =============================
