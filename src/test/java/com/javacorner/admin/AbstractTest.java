@@ -12,6 +12,23 @@ public class AbstractTest {
             //driver.connect("jdbc:tc:mysql:5.7:///?TC_TMPFS=/var/lib/mysql:rw", info);
             .withReuse(true);
 
+    /**
+     *
+     * @Go_to_Terminal_tab_of_IDE
+     * vim .testcontainers.properties
+     * * detour@circumvent:~/IdeaProjects/SpringBoot-JPA-Thymeleaf$ vim .testcontainers.properties
+     * * sudo apt install vim -y
+     *
+     * #Modified by mirpribili
+     * docker.client.strategy=org.testcontainers.dockerclient.UnixSocketClientProviderStrategy
+     * testcontainers.reuse.enable=true
+     * ctrl+c
+     * :wq
+     * :qa! - to exit
+     *
+     * docker ps
+     */
+
     @DynamicPropertySource
     public static void overrideProps(DynamicPropertyRegistry registry) {
         registry.add("spring.datasource.url", container::getJdbcUrl);
