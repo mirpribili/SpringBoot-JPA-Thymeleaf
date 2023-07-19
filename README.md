@@ -3,19 +3,19 @@
 
 ## Spring Data JPA
 ### Implementing Model Layer using Spring Data JPA
-#### To take:
-1. Create a Spring Boot Initializer
-2. Choose Application Maven Dependencies
-3. Create Entities & Relationships
-4. Add database configurations in application.properties
-5. Implementation JPA Repositories Interfaces
-6. Developing Helper Class to Test the Functionalities
-7. Create the Application Database in phpMyAdmin (MySQL)
-8. Generate the Database tables from Application ORM
+#### TODO
+1. Create a Spring Boot Initializer.
+2. Choose Application Maven Dependencies.
+3. Create Entities & Relationships.
+4. Add database configurations in application.properties.
+5. Implementation JPA Repositories Interfaces.
+6. Developing Helper Class to Test the Functionalities.
+7. Create the Application Database in phpMyAdmin (MySQL).
+8. Generate the Database tables from Application ORM.
 
 ## Spring Service
 ### Implementing Business Layer using Spring Service
-#### To take:
+#### TODO
 1. Use Spring Data JPA project.
 2. Remove Utility Package.
 3. Create Service Interfaces & their implementations.
@@ -25,7 +25,7 @@
 
 ##  Unit & Integration Testing
 ### Implementing Testing Layer using SpringBoot Testing. 
-#### To take:
+#### TODO
 1. Use Spring Service Project.
 2. Creating Unit Tests for Service Layer using Junit-5 & Mockito-4.
 3. Configuring Test Containers for Integration Test.
@@ -35,11 +35,23 @@
 ### Implementing Front-End Layer using Thymeleaf
 #### TODO
 1. Use Testing Project
-2. Add Required Dependencies to pom.xml
-3. Create 'Course' Controller & Views
-4. Create 'Instructor' Controller & Views
-5. Create 'Student' Controller & Views
+2. Add Required Dependencies to pom.xml.
+3. Create 'Course' Controller & Views.
+4. Create 'Instructor' Controller & Views.
+5. Create 'Student' Controller & Views.
 
+## Spring Security
+### Implementing Front-End Layer using Thymeleaf
+#### TODO
+1. Use Spring MVC Project.
+2. Add security dependencies to the pom.xml.
+3. Create Security Configuration Class.
+4. Implement User Detail Service.
+5. Encode password using BCryptPasswordEncoder.
+6. Adding role base restriction to Course Controller & Views.
+7. Adding role base restriction to Instructor Controller & Views.
+8. Adding role base restriction to Student Controller & Views.
+9. Testing Application based on roles.
 
 
 * If you need the Docker
