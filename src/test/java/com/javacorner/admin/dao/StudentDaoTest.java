@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Sql(scripts = {"file:src/test/resources/db/clearAll.sql","file:src/test/resources/db/javacorner-admin-db.sql"})
-class StudentDaoTest extends AbstractTest {
+class   StudentDaoTest extends AbstractTest {
 
     @Autowired
     private StudentDao studentDao;
