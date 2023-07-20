@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="template">
 <head>
     <meta charset="UTF-8">
     <title>Update Course</title>
@@ -30,10 +31,17 @@
             </div>
             <div class="mb-3 mt-3">
                 <label class="form-label">Instructor:</label>
-                <select th:field="${course.instructor}" name="instructor" class="form-select">
+                <select sec:authorize="hasAuthority('Admin')" th:field="${course.instructor}" name="instructor"
+                        class="form-select">
                     <option th:each="instructor:${listInstructors}"
                             th:text="${instructor.getFirstName()}+' '+${instructor.getLastName()}"
                             th:value="${instructor.getInstructorId()}"></option>
+                </select>
+                <select sec:authorize="!hasAuthority('Admin') && hasAuthority('Instructor')"
+                        th:field="${course.instructor}" name="instructor" class="form-select">
+                    <option selected
+                            th:text="${currentInstructor.getFirstName()}+' '+${currentInstructor.getLastName()}"
+                            th:value="${currentInstructor.getInstructorId()}"></option>
                 </select>
             </div>
             <div class="mb-3 mt-3" th:each="student:${course.getStudents()}">

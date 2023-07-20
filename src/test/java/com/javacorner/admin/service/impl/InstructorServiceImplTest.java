@@ -54,7 +54,7 @@ class InstructorServiceImplTest {
     @Test
     void testLoadInstructorsByEmail() {
         String email = "instEmail@gmail.com";
-        instructorService.loadInstructorsByEmail(email);
+        instructorService.loadInstructorByEmail(email);
         verify(instructorDao).findInstructorByEmail(email);
     }
 
