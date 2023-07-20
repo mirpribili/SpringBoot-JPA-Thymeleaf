@@ -53,8 +53,13 @@
 8. Adding role base restriction to Student Controller & Views.
 9. Testing Application based on roles.
 
-## NEXT 
-#### Developing a Full-Stack App : SpringBoot + JPA + Thymeleaf
+### NEXT
+1. Add Angular 
+2. Resfull API, 
+3. dev-ops. 
+4. microservice. 
+5. pipelines in order to run Unit tests. 
+6. deploy it into the cloud
 
 
 <details>
