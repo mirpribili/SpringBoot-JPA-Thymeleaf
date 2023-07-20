@@ -36,7 +36,7 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public Instructor loadInstructorsByEmail(String email) {
+    public Instructor loadInstructorByEmail(String email) {
         return instructorDao.findInstructorByEmail(email);
     }
 

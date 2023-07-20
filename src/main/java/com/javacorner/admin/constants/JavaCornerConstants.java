@@ -12,6 +12,10 @@ public final class JavaCornerConstants {
     public static final String LIST_STUDENTS = "listStudents";
 
     public static final String KEYWORD = "keyword";
+    public static final String INSTRUCTOR = "Instructor";
+    public static final String CURRENT_INSTRUCTOR = "currentInstructor";
+    public static final String ADMIN = "Admin";
+    public static final String STUDENT = "Student";
 
 
 }

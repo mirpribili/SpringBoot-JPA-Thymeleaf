@@ -4,12 +4,13 @@ import com.javacorner.admin.entity.Course;
 import com.javacorner.admin.entity.Instructor;
 import com.javacorner.admin.service.CourseService;
 import com.javacorner.admin.service.InstructorService;
+import com.javacorner.admin.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,10 +23,12 @@ public class CourseController {
     private CourseService courseService;
 
     private InstructorService instructorService;
+    private UserService userService;
 
-    public CourseController(CourseService courseService, InstructorService instructorService) {
+    public CourseController(CourseService courseService, InstructorService instructorService, UserService userService) {
         this.courseService = courseService;
         this.instructorService = instructorService;
+        this.userService = userService;
     }
 
     //@ResponseBody
@@ -47,8 +50,16 @@ public class CourseController {
     }
 
     @GetMapping(value = "/formUpdate")
-    @PreAuthorize("hasAuthority('Admin','Instructor')")
-    public String updateCourse(Model model, Long courseId) {
+    @PreAuthorize("hasAnyAuthority('Admin','Instructor')")
+    public String updateCourse(Model model, Long courseId, Principal principal) {
+        if (userService.doesCurrentUserHasRole(INSTRUCTOR)) {
+            //System.out.println("-------------------------------------------------------------------"+principal.getName());
+            // --> instructorUser2@gmai.com
+            Instructor instructor = instructorService.loadInstructorByEmail(principal.getName());
+            //System.out.println("-------------------------------------------------------------------"+instructor.toString());
+
+            model.addAttribute(CURRENT_INSTRUCTOR, instructor);
+        }
         Course course = courseService.loadCourseById(courseId);
         List<Instructor> instructors = instructorService.fetchInstructors();
         model.addAttribute(COURSE, course);

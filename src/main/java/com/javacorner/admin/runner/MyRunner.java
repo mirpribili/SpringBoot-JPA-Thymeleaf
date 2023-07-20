@@ -40,7 +40,7 @@ public class MyRunner implements CommandLineRunner {
 
 
         Instructor instructor1 = instructorService.createInstructor("instructor1FN", "instructor1LN", "Experienced Instructor", "instructorUser1@gmai.com", "pass1");
-        Instructor instructor2 = instructorService.createInstructor("instructor2FN", "instructor2LN", "Experienced Instructor", "instructorUser2@gmai.com", "pass2");
+        Instructor instructor2 = instructorService.createInstructor("instructor2FN", "instructor2LN", "Experienced Instructor 2", "instructorUser2@gmai.com", "pass2");
 
         Student student1 = studentService.createStudent("std1FN","std1LN","beginner","stdUser1@gmail.com","pass1");
         Student student2 = studentService.createStudent("std2FN","std2LN","master degree","stdUser2@gmail.com","pass2");
