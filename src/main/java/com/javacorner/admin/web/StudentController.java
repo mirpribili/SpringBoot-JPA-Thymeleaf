@@ -4,6 +4,7 @@ import com.javacorner.admin.entity.Student;
 import com.javacorner.admin.entity.User;
 import com.javacorner.admin.service.StudentService;
 import com.javacorner.admin.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 import static com.javacorner.admin.constants.JavaCornerConstants.KEYWORD;
@@ -31,6 +33,7 @@ public class StudentController {
     }
 
     @GetMapping(value = "/index")
+    @PreAuthorize("hasAuthority('Admin')")
     public String students(Model model, @RequestParam(name = KEYWORD, defaultValue = "") String keyword) {
         List<Student> students = studentService.findStudentByName(keyword);
         model.addAttribute(LIST_STUDENTS, students);
@@ -39,32 +42,36 @@ public class StudentController {
     }
 
     @GetMapping(value = "/delete")
+    @PreAuthorize("hasAuthority('Admin')")
     public String deleteStudent(Long studentId, String keyword) {
         studentService.removeStudent(studentId);
         return "redirect:/students/index?keyword=" + keyword;
     }
 
     @GetMapping(value = "/formUpdate")
-    public String updateStudent(Model model, Long studentId) {
-        //current Student
-        Student student = studentService.loadStudentById(studentId);
+    @PreAuthorize("hasAuthority('Student')")
+    public String updateStudent(Model model, Principal principal) {
+        Student student = studentService.loadStudentByEmail(principal.getName());
         model.addAttribute("student", student);
         return "student-views/formUpdate";
     }
 
     @PostMapping(value = "/update")
+    @PreAuthorize("hasAuthority('Student')")
     public String update(Student student) {
         studentService.updateStudent(student);
-        return "redirect:/students/index";
+        return "redirect:/courses/index/student";
     }
 
     @GetMapping(value = "/formCreate")
+    @PreAuthorize("hasAuthority('Admin')")
     public String formStudents(Model model) {
         model.addAttribute("student", new Student());
         return "student-views/formCreate";
     }
 
     @PostMapping(value = "/save")
+    @PreAuthorize("hasAuthority('Admin')")
     public String save(Student student, BindingResult bindingResult) {
         User user = userService.loadUserByEmail(student.getUser().getEmail());
         if (user != null)
