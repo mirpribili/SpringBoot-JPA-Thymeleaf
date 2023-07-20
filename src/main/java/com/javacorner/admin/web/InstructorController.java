@@ -4,6 +4,7 @@ import com.javacorner.admin.entity.Instructor;
 import com.javacorner.admin.entity.User;
 import com.javacorner.admin.service.InstructorService;
 import com.javacorner.admin.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 import static com.javacorner.admin.constants.JavaCornerConstants.KEYWORD;
@@ -32,6 +34,7 @@ public class InstructorController {
     }
 
     @GetMapping("/index")
+    @PreAuthorize("hasAuthority('Admin')")
     public String instructors(Model model, @RequestParam(name = KEYWORD, defaultValue = "") String keyword) {
         List<Instructor> instructors = instructorService.findInstructorsByName(keyword);
         model.addAttribute(LIST_INSTRUCTORS, instructors);
@@ -40,32 +43,36 @@ public class InstructorController {
     }
 
     @GetMapping("/delete")
+    @PreAuthorize("hasAuthority('Admin')")
     public String deleteInstructor(Long instructorId, String keyword) {
         instructorService.removeInstructor(instructorId);
         return "redirect:/instructors/index?keyword=" + keyword;
     }
 
     @GetMapping(value = "/formUpdate")
-    public String updateInstructor(Model model, Long instructorId) {
-        //current Instructor
-        Instructor instructor = instructorService.loadInstructorById(instructorId);
+    @PreAuthorize("hasAuthority('Instructor')")
+    public String updateInstructor(Model model, Principal principal) {
+        Instructor instructor = instructorService.loadInstructorByEmail(principal.getName());
         model.addAttribute("instructor", instructor);
         return "instructor-views/formUpdate";
     }
 
     @PostMapping(value = "/update")
+    @PreAuthorize("hasAuthority('Instructor')")
     public String update(Instructor instructor) {
         instructorService.updateInstructor(instructor);
-        return "redirect:/instructors/index";
+        return "redirect:/courses/index/instructor";
     }
 
     @GetMapping(value = "/formCreate")
+    @PreAuthorize("hasAuthority('Admin')")
     public String formInstructors(Model model) {
         model.addAttribute("instructor", new Instructor());
         return "instructor-views/formCreate";
     }
 
     @PostMapping(value = "/save")
+    @PreAuthorize("hasAuthority('Admin')")
     public String save(@Valid Instructor instructor, BindingResult bindingResult) {
         User user = userService.loadUserByEmail(instructor.getUser().getEmail());
         if (user != null)
