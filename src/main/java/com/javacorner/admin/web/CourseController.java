@@ -2,13 +2,17 @@ package com.javacorner.admin.web;
 
 import com.javacorner.admin.entity.Course;
 import com.javacorner.admin.entity.Instructor;
+import com.javacorner.admin.entity.User;
 import com.javacorner.admin.service.CourseService;
 import com.javacorner.admin.service.InstructorService;
 import com.javacorner.admin.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -23,6 +27,7 @@ public class CourseController {
     private CourseService courseService;
 
     private InstructorService instructorService;
+
     private UserService userService;
 
     public CourseController(CourseService courseService, InstructorService instructorService, UserService userService) {
@@ -31,9 +36,7 @@ public class CourseController {
         this.userService = userService;
     }
 
-    //@ResponseBody
     @GetMapping(value = "/index")
-    // only for admin role
     @PreAuthorize("hasAuthority('Admin')")
     public String courses(Model model, @RequestParam(name = KEYWORD, defaultValue = "") String keyword) {
         List<Course> courses = courseService.findCoursesByCourseName(keyword);
@@ -53,11 +56,7 @@ public class CourseController {
     @PreAuthorize("hasAnyAuthority('Admin','Instructor')")
     public String updateCourse(Model model, Long courseId, Principal principal) {
         if (userService.doesCurrentUserHasRole(INSTRUCTOR)) {
-            //System.out.println("-------------------------------------------------------------------"+principal.getName());
-            // --> instructorUser2@gmai.com
             Instructor instructor = instructorService.loadInstructorByEmail(principal.getName());
-            //System.out.println("-------------------------------------------------------------------"+instructor.toString());
-
             model.addAttribute(CURRENT_INSTRUCTOR, instructor);
         }
         Course course = courseService.loadCourseById(courseId);
@@ -68,7 +67,12 @@ public class CourseController {
     }
 
     @GetMapping(value = "/formCreate")
-    public String formCourses(Model model) {
+    @PreAuthorize("hasAnyAuthority('Admin','Instructor')")
+    public String formCourses(Model model, Principal principal) {
+        if (userService.doesCurrentUserHasRole(INSTRUCTOR)) {
+            Instructor instructor = instructorService.loadInstructorByEmail(principal.getName());
+            model.addAttribute(CURRENT_INSTRUCTOR, instructor);
+        }
         List<Instructor> instructors = instructorService.fetchInstructors();
         model.addAttribute(LIST_INSTRUCTORS, instructors);
         model.addAttribute(COURSE, new Course());
@@ -76,39 +80,51 @@ public class CourseController {
     }
 
     @PostMapping(value = "/save")
+    @PreAuthorize("hasAnyAuthority('Admin','Instructor')")
     public String save(Course course) {
         courseService.createOrUpdateCourse(course);
-        return "redirect:/courses/index";
+        return userService.doesCurrentUserHasRole(INSTRUCTOR) ? "redirect:/courses/index/instructor" : "redirect:/courses/index";
     }
 
     @GetMapping(value = "/index/student")
-    public String coursesForCurrentStudent(Model model) {
-        Long studentId = 1L; // current student
-        List<Course> subscribedCourses = courseService.fetchCoursesForStudent(studentId);
+    @PreAuthorize("hasAuthority('Student')")
+    public String coursesForCurrentStudent(Model model, Principal principal) {
+        User user = userService.loadUserByEmail(principal.getName());
+        List<Course> subscribedCourses = courseService.fetchCoursesForStudent(user.getStudent().getStudentId());
         List<Course> otherCourses = courseService.fetchAll().stream().filter(course -> !subscribedCourses.contains(course)).collect(Collectors.toList());
         model.addAttribute(LIST_COURSES, subscribedCourses);
         model.addAttribute(OTHER_COURSES, otherCourses);
+        model.addAttribute(FIRST_NAME, user.getStudent().getFirstName());
+        model.addAttribute(LAST_NAME, user.getStudent().getLastName());
         return "course-views/student-courses";
     }
 
     @GetMapping(value = "/enrollStudent")
-    public String enrollCurrentStudentInCourse(Long courseId) {
-        Long studentId = 1L;
-        courseService.assignStudentToCourse(courseId, studentId);
+    @PreAuthorize("hasAuthority('Student')")
+    public String enrollCurrentStudentInCourse(Long courseId, Principal principal) {
+        User user = userService.loadUserByEmail(principal.getName());
+        courseService.assignStudentToCourse(courseId, user.getStudent().getStudentId());
         return "redirect:/courses/index/student";
     }
 
     @GetMapping(value = "/index/instructor")
-    public String coursesForCurrentInstructor(Model model) {
-        Long instructorId = 1L; // current Instructor
-        Instructor instructor = instructorService.loadInstructorById(instructorId);
+    @PreAuthorize("hasAuthority('Instructor')")
+    public String coursesForCurrentInstructor(Model model, Principal principal) {
+        User user = userService.loadUserByEmail(principal.getName());
+        Instructor instructor = instructorService.loadInstructorById(user.getInstructor().getInstructorId());
         model.addAttribute(LIST_COURSES, instructor.getCourses());
+        model.addAttribute(FIRST_NAME, instructor.getFirstName());
+        model.addAttribute(LAST_NAME, instructor.getLastName());
         return "course-views/instructor-courses";
     }
+
     @GetMapping(value = "/instructor")
+    @PreAuthorize("hasAuthority('Admin')")
     public String coursesByInstructorId(Model model, Long instructorId) {
         Instructor instructor = instructorService.loadInstructorById(instructorId);
         model.addAttribute(LIST_COURSES, instructor.getCourses());
+        model.addAttribute(FIRST_NAME, instructor.getFirstName());
+        model.addAttribute(LAST_NAME, instructor.getLastName());
         return "course-views/instructor-courses";
     }
 
