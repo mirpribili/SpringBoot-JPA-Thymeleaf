@@ -4,6 +4,7 @@ import com.javacorner.admin.entity.Course;
 import com.javacorner.admin.entity.Instructor;
 import com.javacorner.admin.service.CourseService;
 import com.javacorner.admin.service.InstructorService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,8 @@ public class CourseController {
 
     //@ResponseBody
     @GetMapping(value = "/index")
+    // only for admin role
+    @PreAuthorize("hasAuthority('Admin')")
     public String courses(Model model, @RequestParam(name = KEYWORD, defaultValue = "") String keyword) {
         List<Course> courses = courseService.findCoursesByCourseName(keyword);
         model.addAttribute(LIST_COURSES, courses);
@@ -37,12 +40,14 @@ public class CourseController {
     }
 
     @GetMapping(value = "/delete")
+    @PreAuthorize("hasAuthority('Admin')")
     public String deleteCourse(Long courseId, String keyword) {
         courseService.removeCourse(courseId);
         return "redirect:/courses/index?keyword=" + keyword;
     }
 
     @GetMapping(value = "/formUpdate")
+    @PreAuthorize("hasAuthority('Admin','Instructor')")
     public String updateCourse(Model model, Long courseId) {
         Course course = courseService.loadCourseById(courseId);
         List<Instructor> instructors = instructorService.fetchInstructors();
