@@ -55,7 +55,7 @@
 
 ### NEXT
 1. Add Angular 
-2. Resfull API, 
+2. Restfull API, 
 3. dev-ops. 
 4. microservice. 
 5. pipelines in order to run Unit tests. 
